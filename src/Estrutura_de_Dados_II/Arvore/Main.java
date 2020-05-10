@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         Arvore a = new Arvore();
+
         System.out.println("\n##### MÉTODO DE ADIÇÃO #####\n");
         a.add(8);   // Raiz
         a.add(3);   // Esquerda de 8
@@ -12,8 +13,8 @@ public class Main {
         a.add(10);  // Direita de 8
         a.add(9);   // Esquerda de 10
         a.add(14);  // Direita de 10
-        System.out.println("\n##### MÉTODO DE BUSCA #####\n");
 
+        System.out.println("\n##### MÉTODO DE BUSCA #####\n");
         a.buscar(9);
         a.buscar(20);
 
@@ -26,6 +27,5 @@ public class Main {
         System.out.println();
         a.ordemRED();
         System.out.println();
-
     }
 }
