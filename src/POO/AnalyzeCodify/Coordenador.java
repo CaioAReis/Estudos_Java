@@ -27,7 +27,7 @@ public class Coordenador extends Funcionario{
     // METODOS
 
     public double getSalarioBruto() {
-        return this.salarioBase + this.gratProdutividade + this.gratCoordenacao;
+        return this.getSalarioBase() + this.getGratProdutividade() + this.getGratCoordenacao();
     }
 
     public double getDesconto() {

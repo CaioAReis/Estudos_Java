@@ -23,14 +23,13 @@ public class Funcionario extends Pessoa{
 
     public Funcionario(String cpf, String nome, char sexo, int idade, int nrDependentes, double gratProdutividade) {
         super(cpf, nome, sexo, idade);
-        this.matricula = random.nextInt(10);
+        this.matricula = random.nextInt(1);
         this.salarioBase = 954;
         this.nrDependentes = nrDependentes;
         this.gratProdutividade = gratProdutividade;
     }
     
     // MÉTODOS
-
     public double getSalarioBruto() {
         return this.salarioBase + this.gratProdutividade;
     }
@@ -86,7 +85,7 @@ public class Funcionario extends Pessoa{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Funcionario that = (Funcionario) o;
-        return matricula == that.matricula && cpf.equals(that.cpf);
+        return matricula == that.matricula && getCpf().equals(that.getCpf());
     }
 
     // TOSTRING
