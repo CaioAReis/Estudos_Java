@@ -1,6 +1,5 @@
 package POO.AnalyzeCodify;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class Funcionario extends Pessoa{
@@ -8,10 +7,10 @@ public class Funcionario extends Pessoa{
     Random random = new Random();
 
     // ATRIBUTOS
-    int matricula;
-    double salarioBase;
-    int nrDependentes;
-    double gratProdutividade;
+    private int matricula;
+    private double salarioBase;
+    private int nrDependentes;
+    private double gratProdutividade;
 
     // CONSTRTORES
     public Funcionario(String cpf, String nome) {
@@ -33,13 +32,22 @@ public class Funcionario extends Pessoa{
     // MÉTODOS
 
     public double getSalarioBruto() {
-        return salarioBase + gratProdutividade;
+        return this.salarioBase + this.gratProdutividade;
     }
 
     public double getDesconto() {
-        return 0;
+
+        if (getSalarioBruto() >= 2000 && getSalarioBruto() < 4000)
+            return (getSalarioBruto() * 10) / 100;
+        else if (getSalarioBruto() >= 4000)
+            return (getSalarioBruto() * 25) / 100;
+        else
+            return 0;
     }
 
+    public double getSalarioLiquido() {
+        return getSalarioBruto() - getDesconto();
+    }
 
 
     // ENCAPSULAMENTO

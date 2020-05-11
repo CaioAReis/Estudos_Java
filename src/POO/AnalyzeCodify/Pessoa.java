@@ -2,10 +2,10 @@ package POO.AnalyzeCodify;
 
 public class Pessoa {
     // ATRIBUTOS
-    String cpf;
-    String nome;
-    char sexo;
-    int idade;
+    private String cpf;
+    private String nome;
+    private char sexo;
+    private int idade;
 
     // CONSTRUTORES
     public Pessoa(String cpf, String nome) {
