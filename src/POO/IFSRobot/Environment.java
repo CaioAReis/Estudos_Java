@@ -38,8 +38,14 @@ public class Environment {
         return this.length;
     }
 
-    public void printEnvironment() {    // AINDA FALTA
-        System.out.println();
+    public void printEnvironment() {
+        System.out.println("::: Ambiente :::");
+        for (int i = 0; i < getLength(); i++) {
+            System.out.print('[');
+            for (int j = 0; j < getWidth(); j++)
+                System.out.print(environment[j][i] + ", ");
+            System.out.print("]\n");
+        }
     }
 
     // EQUALS
@@ -53,7 +59,14 @@ public class Environment {
 
     // TOSTRING
     @Override
-    public String toString() {  // AINDA FALTA!!
-        return " ";
+    public String toString() {
+        StringBuilder amb = new StringBuilder();
+        for (int i = 0; i < getLength(); i++) {
+            amb.append('[');
+            for (int j = 0; j < getWidth(); j++)
+                amb.append(environment[j][i]).append(", ");
+            amb.append(']').append('\n');
+        }
+        return amb.toString();
     }
 }
