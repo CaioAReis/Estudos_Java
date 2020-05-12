@@ -6,7 +6,7 @@ public class Environment {
 
     // ATRIBUTOS
     private char[][] environment;
-    int width, length;
+    private int width, length;
 
     // CONSTRUTORES
     public Environment(char[][] environment) {
