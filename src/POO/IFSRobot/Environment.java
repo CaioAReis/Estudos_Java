@@ -1,12 +1,10 @@
 package POO.IFSRobot;
 
-import java.util.Arrays;
-
 public class Environment {
 
     // ATRIBUTOS
     private char[][] environment;
-    private int width, length;
+    private final int width, length;
 
     // CONSTRUTORES
     public Environment(char[][] environment) {
@@ -54,19 +52,31 @@ public class Environment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Environment that = (Environment) o;
-        return Arrays.equals(environment, that.environment);
+        boolean test = false;
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getLength(); j++) {
+                if (environment[j][i] == that.environment[j][i])
+                    test = true;
+                else{
+                    test = false;
+                    break;
+                }
+            }
+            if (!test)
+                break;
+        }
+        return test;
     }
 
     // TOSTRING
     @Override
     public String toString() {
-        StringBuilder amb = new StringBuilder();
         for (int i = 0; i < getLength(); i++) {
-            amb.append('[');
+            System.out.println('[');
             for (int j = 0; j < getWidth(); j++)
-                amb.append(environment[j][i]).append(", ");
-            amb.append(']').append('\n');
+                System.out.println(environment[j][i] + ", ");
+            System.out.println("]\n");
         }
-        return amb.toString();
+        return " ";
     }
 }

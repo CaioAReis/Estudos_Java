@@ -12,7 +12,7 @@ public abstract class AbsBasicRobot implements IRobot{
     public AbsBasicRobot(Environment environment) {
         this.environment = environment;
         this.initialPosition = new Position(0,0);
-        this.finalPosition = new Position(environment.getWidth(),environment.getLength());
+        this.finalPosition = new Position(environment.getWidth()-1,environment.getLength()-1);
         this.currentPosition = new Position(0,0);
     }
 
@@ -28,8 +28,8 @@ public abstract class AbsBasicRobot implements IRobot{
 
     @Override
     public void setFinalPosition(Position position) throws RobotException {
-        if (position.getRow() > environment.getWidth() ||
-            position.getCol() > environment.getLength() ||
+        if (position.getRow() >= environment.getWidth() ||
+            position.getCol() >= environment.getLength() ||
             position.getRow() < 0 || position.getCol() < 0)
                 throw new RobotException("Posição final inválida - Fora dos limites da área.");
         else

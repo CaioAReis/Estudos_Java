@@ -8,46 +8,44 @@ public class TestVacuumCleaner {
         char[][] mapOriginal = {{' ','S',' '}, {' ','S',' '}, {'S',' ',' '}};
         environment = new Environment(mapOriginal);
         robot = new LeftRigthVacuumCleanerRobot(environment);
-
     }
 
-    public static boolean testLRVacuumCleanerTurnOn() { // Está Certo!!
+    public static boolean testLRVacuumCleanerTurnOn() {
         inicialize();
         robot.turnOn();
         return robot.isSwitchedOn();
-    }
+    }   // OK
 
-    public static boolean testLRVacuumCleanerTurnOff() { // Está Certo!!
+    public static boolean testLRVacuumCleanerTurnOff() {
         inicialize();
         robot.turnOn();
         robot.turnOff();
         return !robot.isSwitchedOn();
-    }
+    }   // OK
 
     public static boolean testInitialPosition() {
         inicialize();
         return robot.getInitialPosition().equals(new Position(0,0));
-    }
+    }   // OK
 
     public static boolean testFinalPosition() {
         inicialize();
         return robot.getFinalPosition().equals(new Position(2,2));
-    }
+    }   // OK
 
     public static boolean testCurrentPositionAfterOneMove() {
         inicialize();
         robot.move();
-        System.out.println(robot.currentPosition);
         return robot.getCurrentPosition().equals(new Position(0,1));
-    }
+    }   // OK
 
     public static boolean testCurrentPositionAfterThreeMoves() {
         inicialize();
         for (int i = 0; i < 3; i++)
             robot.move();
-        System.out.println(robot.currentPosition + "--------");
+
         return robot.getCurrentPosition().equals(new Position(1,0));
-    }
+    }   // OK
 
     public static boolean testInitialEnvironment() {
         inicialize();
@@ -55,8 +53,7 @@ public class TestVacuumCleaner {
         Environment environmentGoal = new Environment(mapGoal);
 
         return robot.getEnvironment().equals(environmentGoal);
-    }
-
+    }   // OK
 
     public static boolean testEnvironmentAfterOneMoveAndOneClean() {
         inicialize();
@@ -66,7 +63,7 @@ public class TestVacuumCleaner {
         robot.clear();
 
         return robot.getEnvironment().equals(environmentGoal);
-    }
+    }   // OK
 
     public static boolean testEnvironmentAfterThreeMovesAndOneClean() {
         inicialize();
@@ -77,7 +74,7 @@ public class TestVacuumCleaner {
         robot.clear();
 
         return robot.getEnvironment().equals(environmentGoal);
-    }
+    }   // OK
 
     public static boolean testEnvironmentAfterFourMovesAndOneClean() {
         inicialize();
@@ -88,7 +85,7 @@ public class TestVacuumCleaner {
         robot.clear();
 
         return robot.getEnvironment().equals(environmentGoal);
-    }
+    }   // OK
 
 
     public static boolean testEnvironmentAfterOneMoveAndCleanAndAfterThreeMovesAndClean() {
@@ -103,7 +100,7 @@ public class TestVacuumCleaner {
         robot.clear();
 
         return robot.getEnvironment().equals(environmentGoal);
-    }
+    }   // OK
 
     public static void main(String[] args) {
         int totalTest = 11;
@@ -160,5 +157,3 @@ public class TestVacuumCleaner {
 
     }
 }
-
-
