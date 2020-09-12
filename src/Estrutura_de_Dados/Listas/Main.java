@@ -37,34 +37,34 @@ public class Main {
 //        System.out.println("Pegando o elemento dada a posição: " + listaCircular.get(2));
 //        System.out.println("Verificar se determinado elemento está na lista: " + listaCircular.encontrarElemento('X'));
 //----------------------------------------------------------------------------------------------------------------------
-//        ListaDuplamenteEncadeada lde = new ListaDuplamenteEncadeada();
-//        lde.adicionarInicio('A');
-//        lde.adicionarFim('B');
-//        lde.adicionarFim('C');
-//        lde.adicionarPosicao(2,'X');
-//        lde.removerInicio();
-//        lde.removerFim();
-//        lde.removerPosicao(1);
-//        lde.listar();
-//        System.out.println("\nQuantidade de NOs da lista atual: " + lde.getQtd());
-//        System.out.println("Pegando o elemento dada a posição: " + lde.get(1).getElement());
-//        System.out.println("Verificar se determinado elemento está na lista: " + lde.encontrarElemento('A'));
+       ListaDuplamenteEncadeada lde = new ListaDuplamenteEncadeada();
+       lde.adicionarInicio('A');
+       lde.adicionarFim('B');
+       lde.adicionarFim('C');
+       lde.adicionarPosicao(2,'X');
+       lde.removerInicio();
+       lde.removerFim();
+       lde.removerPosicao(1);
+       lde.listar();
+       System.out.println("\nQuantidade de NOs da lista atual: " + lde.getQtd());
+       System.out.println("Pegando o elemento dada a posição: " + lde.get(1).getElement());
+       System.out.println("Verificar se determinado elemento está na lista: " + lde.encontrarElemento('A'));
 //----------------------------------------------------------------------------------------------------------------------
 
-        ListaDuplamenteEncadeadaCircular ldec = new ListaDuplamenteEncadeadaCircular();
+//         ListaDuplamenteEncadeadaCircular ldec = new ListaDuplamenteEncadeadaCircular();
 
-        ldec.adicionarFim('B');
-        ldec.adicionarFim('C');
-        ldec.adicionarFim('D');
-        ldec.adicionarInicio('A');
-        ldec.adicionarPosicao(1,'X');
-//        ldec.removerInicio();
-//        ldec.removerFim();
-//        ldec.removerPosicao(3);
-        ldec.listar();
-        System.out.println("\nQuantidade de NOs da lista atual: " + ldec.getQtd());
-        System.out.println("Pegando o elemento dada a posição: " + ldec.get(1).getElement());
-        System.out.println("Verificar se determinado elemento está na lista: " + ldec.encontrarElemento('A'));
+//         ldec.adicionarFim('B');
+//         ldec.adicionarFim('C');
+//         ldec.adicionarFim('D');
+//         ldec.adicionarInicio('A');
+//         ldec.adicionarPosicao(1,'X');
+// //        ldec.removerInicio();
+// //        ldec.removerFim();
+// //        ldec.removerPosicao(3);
+//         ldec.listar();
+//         System.out.println("\nQuantidade de NOs da lista atual: " + ldec.getQtd());
+//         System.out.println("Pegando o elemento dada a posição: " + ldec.get(1).getElement());
+//         System.out.println("Verificar se determinado elemento está na lista: " + ldec.encontrarElemento('A'));
 
     }
 }

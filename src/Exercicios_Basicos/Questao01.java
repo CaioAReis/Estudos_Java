@@ -13,6 +13,6 @@ public class Questao01 {
         if(n1 > n2)
             System.out.println("A diferença do maior p/ o menor é de: " + (n1-n2));
         else
-            System.out.println("A diferença do maior p/ o menos é de: " + (n2-n1));
+            System.out.println("A diferença do maior p/ o menor é de: " + (n2-n1));
     }
 }

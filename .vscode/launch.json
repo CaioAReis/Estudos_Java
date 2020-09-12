@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Estrutura_de_Dados.Listas.Main",
+            "projectName": "Estudos_Java_b21c45cf"
+        }
+    ]
+}
