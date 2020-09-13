@@ -1,6 +1,6 @@
 package Exercicios_Basicos;
 import java.util.Scanner;
-public class Questão30 {
+public class Questao30 {
     public static void main(String[] args) {
         Scanner input = new Scanner (System.in);
 
