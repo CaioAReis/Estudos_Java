@@ -37,27 +37,74 @@ public class Tree {
     }
 
     //  BUSCA
-    public void buscar(int valor){
+    public No buscar(int valor){
         if (isEmpty()){
             System.out.println("Árvore vazia!");
+            return null;
         }else
-            buscar(raiz, valor);
+            return buscar(raiz, valor);
     }
 
     private No buscar(No raiz, int valor){
-        if (raiz == null){
-            System.out.println(valor + " NÃO encontrdo!!");
-            return null;
-        } else if (raiz.getValor() == valor){
-            System.out.println(valor + " Encontrado!!");
-            return raiz;
-        } else {
-            if (valor > raiz.getValor()){
-                buscar(raiz.getDireito(),valor);
-            } else
-                buscar(raiz.getEsquerdo(),valor);
+        No achei = null;
+        if (raiz != null){
+            if (raiz.getValor() == valor){
+                System.out.println(valor + " Encontrado!!");
+                return raiz;
+            } else {
+                if (valor > raiz.getValor()){
+                    achei = buscar(raiz.getDireito(),valor);
+                } else
+                    achei = buscar(raiz.getEsquerdo(),valor);
+            }
         }
-        return null;
+        return achei;
+    }
+
+    public No buscarPai(int valor){
+        if (isEmpty()){
+            return null;
+        }else
+            return buscarPai(raiz, valor);
+    }
+
+    private No buscarPai(No raiz, int valor){
+        No pai = null;
+        if (raiz != null){
+            if (valor < raiz.getValor()){
+                if (raiz.getEsquerdo().getValor() == valor){
+                    pai = raiz;
+                    return raiz;
+                } else
+                    pai = buscarPai(raiz.getEsquerdo(), valor);
+            } else {
+                if (raiz.getDireito().getValor() == valor){
+                    pai = raiz;
+                    return raiz;
+                } else
+                    pai = buscarPai(raiz.getDireito(), valor);
+            }
+        }
+        return pai;
+    }
+
+    //  REMOÇÃO
+    public void remover(int valor){
+        No removido = buscar(raiz, valor);
+        if (removido == null)
+            System.out.println("valor não encontrado.");
+        else {
+            No pai = buscarPai(valor);
+            remover(raiz, valor, removido, pai);
+        }
+    }
+
+    private No remover(No raiz, int valor, No removido, No paiRemovido){
+        No substituto = null, paiSubstituto = null;
+
+
+
+        return paiRemovido;
     }
 
     //  QUANTIDADE DE NOs
@@ -147,6 +194,38 @@ public class Tree {
             System.out.print(raiz.getValor() + " | ");
             printOrdemRED(raiz.getEsquerdo());
             printOrdemRED(raiz.getDireito());
+        }
+    }
+
+    //  Altura
+    public int altura(){
+        if (!isEmpty())
+            return altura(raiz);
+        else
+            return -1;
+    }
+
+    private int altura(No raiz){
+        if (raiz != null){
+            int altE = altura(raiz.getEsquerdo());
+            int altD = altura(raiz.getDireito());
+            if (altE < altD) return altD + 1;
+            else return altE + 1;
+        }
+        return -1;
+    }
+
+    //  Niveis da arvore
+    public void niveisArvore(){
+        if (isEmpty())
+            System.out.println("Árvore vazia!!");
+        else
+            niveisArvore(raiz);
+    }
+
+    private void niveisArvore(No raiz){
+        if (raiz != null){
+            niveisArvore(raiz.getEsquerdo());
         }
     }
 

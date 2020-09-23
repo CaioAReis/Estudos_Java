@@ -11,14 +11,12 @@ public class Main {
             arvore.inserir(23);
             arvore.inserir(20);
             arvore.inserir(30);
+            arvore.inserir(124);
         //  Busca
-            arvore.buscar(12);
-            arvore.buscar(132);
+//        System.out.print(arvore.buscar(12).getValor());
+//            arvore.buscar(132);
 
-        System.out.println(arvore.quantidadeNos()+"\n\n");
-//        arvore.exibirArvore();
-
-        arvore.printOrdemRED();
+        System.out.println(arvore.buscarPai(20).getValor());
 
 
     }
