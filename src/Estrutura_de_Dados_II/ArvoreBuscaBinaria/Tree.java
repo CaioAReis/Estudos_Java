@@ -93,18 +93,33 @@ public class Tree {
             No removido = buscar(raiz, valor);
             if (removido == null)
                 System.out.println("Valor não encontrado.");
+            else if (removido == raiz)
+                remover(removido, null);
             else {
                 No pai = buscarPai(valor);
-                remover(raiz, valor, removido, pai);
+                remover(removido, pai);
             }
         }else
             System.out.println("Árvore vazia.");
     }
 
-    private boolean remover(No atual, int valor, No removido, No paiRemovido){
-//        No subs, paiSubs;
-//        //  Se for a raiz
-//        if (atual == this.raiz) this.raiz = null;
+    private boolean remover(No removido, No paiRemovido){
+        No substituto = removido.getEsquerdo(), paiSubstituto = removido;
+
+        //  Se o NO a ser excluido for a RAIZ
+        if (removido == raiz){
+            while(substituto.existeDireito()){
+                paiSubstituto = substituto;
+                substituto = substituto.getDireito();
+            }
+            if (paiSubstituto != removido){
+                paiSubstituto.setDireito(substituto.getEsquerdo());
+                substituto.setEsquerdo(removido.getEsquerdo());
+            }
+            substituto.setDireito(removido.getDireito());
+            raiz = substituto;
+            return true;
+        }
 
         //  Se o NO que será excluído for uma folha
         if (!removido.existeEsquerdo() && !removido.existeDireito()){
@@ -125,19 +140,24 @@ public class Tree {
             return true;
         }
 
-        //  Se tiver dois filhos
+        //  Se o NO a ser excluido tiver dois filhos
         if (removido.existeEsquerdo() && removido.existeDireito()){
-            No substituto = removido.getEsquerdo(), paiSubstituto = removido;
 
             while (substituto.existeDireito()){
                 paiSubstituto = substituto;
                 substituto = substituto.getDireito();
             }
             if (paiSubstituto != removido){
-                
+                paiSubstituto.setDireito(substituto.getEsquerdo());
+                substituto.setEsquerdo(removido.getEsquerdo());
             }
+            substituto.setDireito(removido.getDireito());
+            if (paiRemovido.getEsquerdo() == removido)
+                paiRemovido.setEsquerdo(substituto);
+            else
+                paiRemovido.setDireito(substituto);
+            return true;
         }
-
     return false;
     }
 
@@ -239,10 +259,11 @@ public class Tree {
             return -1;
     }
 
-    private int altura(No raiz){
-        if (raiz != null){
-            int altE = altura(raiz.getEsquerdo());
-            int altD = altura(raiz.getDireito());
+    private int altura(No atual){
+
+        if (atual != null){
+            int altE = altura(atual.getEsquerdo());
+            int altD = altura(atual.getDireito());
             if (altE < altD) return altD + 1;
             else return altE + 1;
         }
