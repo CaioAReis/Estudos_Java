@@ -37,4 +37,18 @@ public class No {
     public void setDireito(No direito) {
         this.direito = direito;
     }
+
+    public boolean existeDireito(){
+        if (this.getDireito() != null)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean existeEsquerdo(){
+        if (this.getEsquerdo() != null)
+            return true;
+        else
+            return false;
+    }
 }

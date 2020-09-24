@@ -49,7 +49,6 @@ public class Tree {
         No achei = null;
         if (raiz != null){
             if (raiz.getValor() == valor){
-                System.out.println(valor + " Encontrado!!");
                 return raiz;
             } else {
                 if (valor > raiz.getValor()){
@@ -90,21 +89,56 @@ public class Tree {
 
     //  REMOÇÃO
     public void remover(int valor){
-        No removido = buscar(raiz, valor);
-        if (removido == null)
-            System.out.println("valor não encontrado.");
-        else {
-            No pai = buscarPai(valor);
-            remover(raiz, valor, removido, pai);
-        }
+        if (!isEmpty()){
+            No removido = buscar(raiz, valor);
+            if (removido == null)
+                System.out.println("Valor não encontrado.");
+            else {
+                No pai = buscarPai(valor);
+                remover(raiz, valor, removido, pai);
+            }
+        }else
+            System.out.println("Árvore vazia.");
     }
 
-    private No remover(No raiz, int valor, No removido, No paiRemovido){
-        No substituto = null, paiSubstituto = null;
+    private boolean remover(No atual, int valor, No removido, No paiRemovido){
+//        No subs, paiSubs;
+//        //  Se for a raiz
+//        if (atual == this.raiz) this.raiz = null;
 
+        //  Se o NO que será excluído for uma folha
+        if (!removido.existeEsquerdo() && !removido.existeDireito()){
+            if (paiRemovido.getDireito() == removido) paiRemovido.setDireito(null);
+            else paiRemovido.setEsquerdo(null);
+            return true;
+        }
 
+        //  Se o NO que será excluído tiver apenas um filho independente do lado
+        if ((removido.existeEsquerdo() && !removido.existeDireito()) || (!removido.existeEsquerdo() && removido.existeDireito())){
+            if (paiRemovido.getEsquerdo() == removido){
+                if (removido.existeEsquerdo()) paiRemovido.setEsquerdo(removido.getEsquerdo());
+                else paiRemovido.setEsquerdo(removido.getDireito());
+            } else {
+               if (removido.existeEsquerdo()) paiRemovido.setDireito(removido.getEsquerdo());
+               else paiRemovido.setDireito(removido.getDireito());
+            }
+            return true;
+        }
 
-        return paiRemovido;
+        //  Se tiver dois filhos
+        if (removido.existeEsquerdo() && removido.existeDireito()){
+            No substituto = removido.getEsquerdo(), paiSubstituto = removido;
+
+            while (substituto.existeDireito()){
+                paiSubstituto = substituto;
+                substituto = substituto.getDireito();
+            }
+            if (paiSubstituto != removido){
+                
+            }
+        }
+
+    return false;
     }
 
     //  QUANTIDADE DE NOs
