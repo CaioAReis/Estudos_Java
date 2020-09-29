@@ -6,7 +6,6 @@ public class No {
     private int altura;
     private No esquerdo;
     private No direito;
-
     //  Construtor
     public No(int valor){
         this.valor = valor;
@@ -14,14 +13,13 @@ public class No {
         this.esquerdo = null;
         this.direito = null;
     }
-
     //  Métodos
     public boolean existeEsquerdo(){
-        return this.esquerdo == null;
+        return this.esquerdo != null;
     }
 
     public boolean existeDireito(){
-        return this.direito == null;
+        return this.direito != null;
     }
     //  Acessores e Modificadores
     public int getValor() {

@@ -6,9 +6,10 @@ public class Main {
     ArvoreAVL a = new ArvoreAVL();
 
     a.inserir(15);
-    a.inserir(25);
-    a.inserir(20);
+    a.inserir(10);
+    a.inserir(11);
 
+    a.printTree();
 
     }
 }
