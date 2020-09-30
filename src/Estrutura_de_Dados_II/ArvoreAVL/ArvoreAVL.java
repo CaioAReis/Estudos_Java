@@ -26,7 +26,7 @@ public class ArvoreAVL {
         this.raiz = novo;
     }
 
-    //  Altura do NO
+    //  Altura de um NO
     public int height(No temp){
         return temp == null ? -1 : temp.getAltura();
     }
@@ -77,7 +77,6 @@ public class ArvoreAVL {
             setRaiz(auxiliar);
             return raiz;
         }
-
         return auxiliar;
     }
 
@@ -119,20 +118,12 @@ public class ArvoreAVL {
         }else
             inserir(raiz, novo);
     }
-
     private No inserir(No atual, No novo){
-        if (novo.getValor() < atual.getValor()){
-            if (!atual.existeEsquerdo()){
-                System.out.println(novo.getValor() + " ADICIONADO À ESQUERDA DE " + atual.getValor());
-                atual.setEsquerdo(novo);
-            }else inserir(atual.getEsquerdo(), novo);
-        } else {
-            if (!atual.existeDireito()){
-                System.out.println(novo.getValor() + " ADICIONADO À DIREITA DE " + atual.getValor());
-                atual.setDireito(novo);
-            }else inserir(atual.getDireito(), novo);
-        }
-        //  Verificar balanceamento
+        if (atual == null) atual = novo;
+        else if (novo.getValor() < atual.getValor())
+            atual.setEsquerdo(inserir(atual.getEsquerdo(), novo));
+        else if (novo.getValor() > atual.getValor())
+            atual.setDireito(inserir(atual.getDireito(), novo));
         atual = balance(atual);
         return atual;
     }
@@ -143,7 +134,6 @@ public class ArvoreAVL {
             return heigthRoot(raiz);
         return -1;
     }
-
     private int heigthRoot(No atual){
         if (atual != null){
             int altE = heigthRoot(atual.getEsquerdo());
@@ -152,6 +142,42 @@ public class ArvoreAVL {
             else return altE + 1;
         }
         return -1;
+    }
+    
+    //  Buscar um No
+    public No searchNo(int valor){
+        if (isEmpty()) return null;
+        else return searchNo(raiz, valor);
+    }
+    private No searchNo(No temp, int value){
+        No found = null;
+        if (temp != null){
+            if (temp.getValor() == value) return temp;
+            else {
+                if (value > temp.getValor()) found = searchNo(raiz.getDireito(), value);
+                else found = searchNo(raiz.getEsquerdo(), value);
+            }
+        }
+        return found;
+    }
+
+    //  Buscar Pai de um No
+    public No searchFather(int value){
+        if (isEmpty())  return null;
+        else return searchFather(raiz, value);
+    }
+    private No searchFather(No temp, int value){
+        No pai = null;
+        if (temp != null){
+            if (value < temp.getValor()){
+                if (temp.getEsquerdo().getValor() == value) return temp;
+                else pai = searchFather(temp.getEsquerdo(), value);
+            } else {
+                if (temp.getDireito().getValor() == value) return temp;
+                else pai = searchFather(temp.getDireito(), value);
+            }
+        }
+        return pai;
     }
 
     //  Exibir árvore
