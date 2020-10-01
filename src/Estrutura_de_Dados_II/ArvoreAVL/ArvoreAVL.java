@@ -128,16 +128,54 @@ public class ArvoreAVL {
         return atual;
     }
 
+    public void remover(int value){
+        No removed = searchNo(value);
+        if (isEmpty()) System.out.println("Árvore vazia!");
+        else if (removed == null) System.out.println("Valor não encontrado");
+        else {
+            No father = searchFather(value);
+            remover(raiz, removed, father);
+        }
+    }
+    private boolean remover(No temp, No removed, No father){
+
+        //  Se o No a ser removido for a RAIZ
+
+        //  Se o No a ser removido for uma folha
+        if (!removed.existeEsquerdo() && !removed.existeDireito()){
+            if (father.getEsquerdo() == removed) father.setEsquerdo(null);
+            else father.setDireito(null);
+            father = balance(father);
+            return true;
+        }
+        //  Se o No a ser removido tiver apenas um filho
+        if (!removed.existeEsquerdo() || !removed.existeDireito()){
+            if (father.getEsquerdo() == removed){
+                if (removed.existeEsquerdo()) father.setEsquerdo(removed.getEsquerdo());
+                else father.setEsquerdo(removed.getDireito());
+            } else {
+                if (removed.existeEsquerdo()) father.setDireito(removed.getEsquerdo());
+                else father.setDireito(removed.getDireito());
+            }
+            father = balance(father);
+            return true;
+        }
+
+        //  Se o No a ser removido tiver dois filhos
+
+        return false;
+    }
+
     //  Altura da árvore
     public int heigthRoot(){
         if (!isEmpty())
             return heigthRoot(raiz);
         return -1;
     }
-    private int heigthRoot(No atual){
-        if (atual != null){
-            int altE = heigthRoot(atual.getEsquerdo());
-            int altD = heigthRoot(atual.getDireito());
+    private int heigthRoot(No temp){
+        if (temp != null){
+            int altE = heigthRoot(temp.getEsquerdo());
+            int altD = heigthRoot(temp.getDireito());
             if (altE < altD) return altD + 1;
             else return altE + 1;
         }
@@ -154,8 +192,8 @@ public class ArvoreAVL {
         if (temp != null){
             if (temp.getValor() == value) return temp;
             else {
-                if (value > temp.getValor()) found = searchNo(raiz.getDireito(), value);
-                else found = searchNo(raiz.getEsquerdo(), value);
+                if (value > temp.getValor()) found = searchNo(temp.getDireito(), value);
+                else found = searchNo(temp.getEsquerdo(), value);
             }
         }
         return found;
@@ -167,28 +205,28 @@ public class ArvoreAVL {
         else return searchFather(raiz, value);
     }
     private No searchFather(No temp, int value){
-        No pai = null;
+        No father = null;
         if (temp != null){
             if (value < temp.getValor()){
                 if (temp.getEsquerdo().getValor() == value) return temp;
-                else pai = searchFather(temp.getEsquerdo(), value);
+                else father = searchFather(temp.getEsquerdo(), value);
             } else {
                 if (temp.getDireito().getValor() == value) return temp;
-                else pai = searchFather(temp.getDireito(), value);
+                else father = searchFather(temp.getDireito(), value);
             }
         }
-        return pai;
+        return father;
     }
 
     //  Exibir árvore
     public void printTree(){
         printTree(raiz);
     }
-    private void printTree(No atual){
-        if (atual != null){
-            System.out.print(atual.getValor() + "(");
-            printTree(atual.getEsquerdo());
-            printTree(atual.getDireito());
+    private void printTree(No temp){
+        if (temp != null){
+            System.out.print(temp.getValor() + "(");
+            printTree(temp.getEsquerdo());
+            printTree(temp.getDireito());
             System.out.print(")");
         }
     }

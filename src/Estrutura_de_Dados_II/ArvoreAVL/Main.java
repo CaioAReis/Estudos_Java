@@ -8,10 +8,15 @@ public class Main {
     a.inserir(15);
     a.inserir(8);
     a.inserir(23);
-    a.inserir(2);
+//    a.inserir(2);
 //    a.inserir(10);
-    a.inserir(1);
+//    a.inserir(20);
+    a.inserir(10);
 
+    System.out.println("\nANTES:");
+    a.printTree();
+    System.out.println("\nDEPOIS:");
+    a.remover(8);
     a.printTree();
 
     }
