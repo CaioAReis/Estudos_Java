@@ -11,11 +11,6 @@ public class ArvoreAVL {
 
     //  Métodos
 
-    //  Limpar Árvore
-    public void clear(){
-        raiz = null;
-    }
-
     //  Pegar a Raiz
     public No getRaiz(){
         return raiz;
@@ -26,9 +21,14 @@ public class ArvoreAVL {
         this.raiz = novo;
     }
 
+    //  Limpar Árvore
+    public void clear(){
+        raiz = null;
+    }
+
     //  Altura de um NO
     public int height(No temp){
-        return temp == null ? -1 : temp.getAltura();
+        return temp == null ? -1 : heigthRoot(temp);
     }
 
     //  Maior valor
@@ -36,12 +36,12 @@ public class ArvoreAVL {
         return Math.max(ladoEsquerdo, ladoDireito);
     }
 
-    //  Verificar balanceamento
+    //  Verificar valor para o tipo de balanceamento
     public int balanceValue(No temp){
-        return height(temp.getEsquerdo()) - height(temp.getDireito());
+        return heigthRoot(temp.getEsquerdo()) - heigthRoot(temp.getDireito());
     }
 
-    //  Balanço
+    //  Balanceamento
     public No balance(No temp){
         if (balanceValue(temp) == 2){
             if (balanceValue(temp.getEsquerdo()) > 0) {
@@ -93,7 +93,6 @@ public class ArvoreAVL {
             setRaiz(auxiliar);
             return raiz;
         }
-
         return auxiliar;
     }
 
@@ -109,55 +108,59 @@ public class ArvoreAVL {
         return  simpleLeftRotation(temp);
     }
 
-    //  Inserir
-    public void inserir(int valor){
-        No novo = new No(valor);
+    //  Inserir um novo NO
+    public void add(int value){
+        No novo = new No(value);
         if (isEmpty()){
             raiz = novo;
             System.out.println(raiz.getValor() + " É Raiz");
         }else
-            inserir(raiz, novo);
+            add(raiz, novo);
     }
-    private No inserir(No atual, No novo){
-        if (atual == null) atual = novo;
-        else if (novo.getValor() < atual.getValor())
-            atual.setEsquerdo(inserir(atual.getEsquerdo(), novo));
-        else if (novo.getValor() > atual.getValor())
-            atual.setDireito(inserir(atual.getDireito(), novo));
-        atual = balance(atual);
-        return atual;
+    private No add(No temp, No novo){
+        if (temp == null) temp = novo;
+        else if (novo.getValor() < temp.getValor())
+            temp.setEsquerdo(add(temp.getEsquerdo(), novo));
+        else if (novo.getValor() > temp.getValor())
+            temp.setDireito(add(temp.getDireito(), novo));
+        temp = balance(temp);
+        return temp;
     }
 
-    public void remover(int value){
+    //  Remover um NO
+    public void remove(int value){
         No removed = searchNo(value);
         if (isEmpty()) System.out.println("Árvore vazia!");
         else if (removed == null) System.out.println("Valor não encontrado");
-        else if (removed == raiz) remover(raiz, removed, null);
+        else if (removed == raiz) remove(removed, null);
         else {
             No father = searchFather(value);
-            remover(raiz, removed, father);
+            remove(removed, father);
         }
     }
-    private boolean remover(No temp, No removed, No father){
-        No subs, paiSubs;
+    private boolean remove(No removed, No father){
+        No substituto, paiSubstituto, avo;
         //  Se o No a ser removido for a RAIZ
         if (removed == raiz){
-            subs = buscarSubstituto(removed.getEsquerdo());
-            paiSubs = searchFather(subs.getValor());
-            if (paiSubs != removed){
-                paiSubs.setDireito(subs.getEsquerdo());
-                subs.setEsquerdo(removed.getEsquerdo());
+            substituto = buscarSubstituto(removed.getEsquerdo());
+            paiSubstituto = searchFather(substituto.getValor());
+            if (paiSubstituto != removed){
+                paiSubstituto.setDireito(substituto.getEsquerdo());
+                substituto.setEsquerdo(removed.getEsquerdo());
             }
-            subs.setDireito(removed.getDireito());
-            raiz = subs;
-            balance(raiz);
+            substituto.setDireito(removed.getDireito());
+            raiz = balance(substituto);
             return true;
         }
         //  Se o No a ser removido for uma folha
         if (!removed.existeEsquerdo() && !removed.existeDireito()){
             if (father.getEsquerdo() == removed) father.setEsquerdo(null);
             else father.setDireito(null);
-            balance(father);
+            if (father != raiz){
+                avo = searchFather(father.getValor());
+                if (avo.getEsquerdo() == father) avo.setEsquerdo(balance(father));
+                else avo.setDireito(balance(father));
+            } else father = balance(father);
             return true;
         }
         //  Se o No a ser removido tiver apenas um filho
@@ -169,30 +172,30 @@ public class ArvoreAVL {
                 if (removed.existeEsquerdo()) father.setDireito(removed.getEsquerdo());
                 else father.setDireito(removed.getDireito());
             }
-            balance(father);
+            father = balance(father);
             return true;
         }
         //  Se o No a ser removido tiver dois filhos
         if (removed.existeEsquerdo() && removed.existeDireito() && removed != raiz){
-            subs = buscarSubstituto(removed.getEsquerdo());
-            paiSubs = searchFather(subs.getValor());
-            if (paiSubs != removed){
-                paiSubs.setDireito(subs.getEsquerdo());
-                subs.setEsquerdo(removed.getEsquerdo());
+            substituto = buscarSubstituto(removed.getEsquerdo());
+            paiSubstituto = searchFather(substituto.getValor());
+            if (paiSubstituto != removed){
+                paiSubstituto.setDireito(substituto.getEsquerdo());
+                substituto.setEsquerdo(removed.getEsquerdo());
             }
-            subs.setDireito(removed.getDireito());
-            if (father.getEsquerdo() == removed) father.setEsquerdo(subs);
-            else father.setDireito(subs);
-            balance(father);
+            substituto.setDireito(removed.getDireito());
+            if (father.getEsquerdo() == removed) father.setEsquerdo(substituto);
+            else father.setDireito(substituto);
+            father = balance(father);
             return true;
         }
-
         return false;
     }
 
-    private No buscarSubstituto(No atual){
-        if (atual.existeDireito()) atual = buscarSubstituto(atual.getDireito());
-        return atual;
+    //  Buscar NO substituto - método auxiliar p/ o método de remoção
+    private No buscarSubstituto(No temp){
+        if (temp.existeDireito()) temp = buscarSubstituto(temp.getDireito());
+        return temp;
     }
 
     //  Altura da árvore
