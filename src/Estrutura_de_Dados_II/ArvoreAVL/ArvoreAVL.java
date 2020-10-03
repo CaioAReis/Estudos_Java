@@ -132,20 +132,32 @@ public class ArvoreAVL {
         No removed = searchNo(value);
         if (isEmpty()) System.out.println("Árvore vazia!");
         else if (removed == null) System.out.println("Valor não encontrado");
+        else if (removed == raiz) remover(raiz, removed, null);
         else {
             No father = searchFather(value);
             remover(raiz, removed, father);
         }
     }
     private boolean remover(No temp, No removed, No father){
-
+        No subs, paiSubs;
         //  Se o No a ser removido for a RAIZ
-
+        if (removed == raiz){
+            subs = buscarSubstituto(removed.getEsquerdo());
+            paiSubs = searchFather(subs.getValor());
+            if (paiSubs != removed){
+                paiSubs.setDireito(subs.getEsquerdo());
+                subs.setEsquerdo(removed.getEsquerdo());
+            }
+            subs.setDireito(removed.getDireito());
+            raiz = subs;
+            balance(raiz);
+            return true;
+        }
         //  Se o No a ser removido for uma folha
         if (!removed.existeEsquerdo() && !removed.existeDireito()){
             if (father.getEsquerdo() == removed) father.setEsquerdo(null);
             else father.setDireito(null);
-            father = balance(father);
+            balance(father);
             return true;
         }
         //  Se o No a ser removido tiver apenas um filho
@@ -157,13 +169,30 @@ public class ArvoreAVL {
                 if (removed.existeEsquerdo()) father.setDireito(removed.getEsquerdo());
                 else father.setDireito(removed.getDireito());
             }
-            father = balance(father);
+            balance(father);
+            return true;
+        }
+        //  Se o No a ser removido tiver dois filhos
+        if (removed.existeEsquerdo() && removed.existeDireito() && removed != raiz){
+            subs = buscarSubstituto(removed.getEsquerdo());
+            paiSubs = searchFather(subs.getValor());
+            if (paiSubs != removed){
+                paiSubs.setDireito(subs.getEsquerdo());
+                subs.setEsquerdo(removed.getEsquerdo());
+            }
+            subs.setDireito(removed.getDireito());
+            if (father.getEsquerdo() == removed) father.setEsquerdo(subs);
+            else father.setDireito(subs);
+            balance(father);
             return true;
         }
 
-        //  Se o No a ser removido tiver dois filhos
-
         return false;
+    }
+
+    private No buscarSubstituto(No atual){
+        if (atual.existeDireito()) atual = buscarSubstituto(atual.getDireito());
+        return atual;
     }
 
     //  Altura da árvore
