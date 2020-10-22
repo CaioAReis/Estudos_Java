@@ -1,11 +1,11 @@
 package Estrutura_de_Dados_II.ArvoreBuscaBinaria;
 
-public class Tree {
+public class Arvore {
     //  Atributos
     private No raiz;
 
     //  Construtores
-    public Tree(){
+    public Arvore(){
         this.raiz = null;
     }
 

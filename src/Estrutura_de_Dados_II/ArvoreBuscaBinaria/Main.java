@@ -2,7 +2,7 @@ package Estrutura_de_Dados_II.ArvoreBuscaBinaria;
 
 public class Main {
     public static void main(String[] args) {
-        Tree arvore = new Tree();
+        Arvore arvore = new Arvore();
         //  Inserção
             arvore.inserir(18);
             arvore.inserir(8);
