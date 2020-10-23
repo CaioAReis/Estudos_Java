@@ -1,31 +1,31 @@
 package Estrutura_de_Dados_II.Grafo;
 
-public class Caminho {
+public class Aresta {
     //  Atributos
-    private No destino;
+    private Vertice destino;
     private int peso;
 
     //  Construtor
-    public Caminho(No destino, int peso){
+    public Aresta(Vertice destino, int peso){
         this.destino = destino;
         this.peso = peso;
     }
 
     //  Acessores e Modificadores
 
-    //  Pegar destino do caminho
-    public No getDestino() {
+    //  Pegar destino da Aresta
+    public Vertice getDestino() {
         return destino;
     }
-    //  Alterar destino do caminho
-    public void setDestino(No destino) {
+    //  Alterar destino da Aresta
+    public void setDestino(Vertice destino) {
         this.destino = destino;
     }
-    //  Pegar valor do caminho
+    //  Pegar valor da Aresta
     public int getPeso() {
         return peso;
     }
-    //  Alterar Peso do caminho
+    //  Alterar Peso da Aresta
     public void setPeso(int peso) {
         this.peso = peso;
     }
