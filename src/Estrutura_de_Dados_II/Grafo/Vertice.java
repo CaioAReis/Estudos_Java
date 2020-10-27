@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Vertice {
     //  Atributos
-    private Object element;
+    private final Object element;
     private ArrayList <Aresta> listaArestas;
     private int qtdArestas;
 
@@ -17,59 +17,88 @@ public class Vertice {
 
     //  Métodos
 
-    //  Quantidade de Arestas do Vértice
-    public int getQtdArestas(){
-        return this.qtdArestas;
-    }
-
     //  Pegar elemento
     public Object getElement() {
         return element;
     }
 
-    //  Adicionar uma aresta
-    public void addAresta(Vertice destino, int peso){
-        for (int i = 0; i < qtdArestas; i++){
-            if (this.listaArestas.get(i).getDestino() == destino){
-                System.out.println("Uma aresta com o mesmo DESTINO já existe!");
-                return;
-            }
+    //  Quantidade de Arestas do Vértice
+    public int getQtdArestas(){
+        return this.qtdArestas;
+    }
+
+    //  Adicionar uma nova aresta
+    public boolean addAresta(Vertice destino, int peso) {
+        if (existeAresta(destino)) {
+            System.out.println("Já existe uma aresta com o mesmo destino informado!!");
+            return false;
         }
         Aresta nova = new Aresta(destino, peso);
         this.listaArestas.add(nova);
+        this.qtdArestas++;
+        return true;
     }
 
-    //  Remover uma aresta
-    public void removerAresta(Aresta aresta){
-        this.listaArestas.remove(aresta);
+    //  Remover aresta por destino
+    public boolean removerArestaDestino(Vertice destino){
+        Aresta removida = buscarArestaDestino(destino);
+        if (removida != null) {
+            this.listaArestas.remove(removida);
+            return true;
+        }
+        System.out.println("O vértice não possui nenhuma aresta com o destino informado!!");
+        return false;
     }
 
-    //  Remover aresta por indice
-    public void removerArestaIndice(int position){
-        this.listaArestas.remove(position);
+    //  Buscar aresta por destino
+    public Aresta buscarArestaDestino(Vertice destino) {
+        for (int i = 0; i < this.qtdArestas; i++) {
+            if (this.listaArestas.get(i).getDestino() == destino)
+                return this.listaArestas.get(i);
+        }
+        return null;
     }
 
     // Verificar se uma aresta existe
-    public boolean existeAresta(Aresta aresta) {
-        return this.listaArestas.contains(aresta);
+    public boolean existeAresta(Vertice destino) {
+        return buscarArestaDestino(destino) != null;
     }
 
-    //  Buscar uma aresta
-    public Aresta buscarAresta(int position){
-        return this.listaArestas.get(position);
+    //  Buscar peso de uma aresta
+    public int pesoAresta(Vertice destino) {
+        if (existeAresta(destino)) {
+            Aresta aresta = buscarArestaDestino(destino);
+            return aresta.getPeso();
+        }
+        return -1;
     }
 
-    //  Pegar o destino de uma Aresta por indice
-    public Vertice getDestinoAresta(int position){
-        return listaArestas.get(position).getDestino();
-    }
-
-    //  Pegar peso de uma aresta por indice
+    //  Buscar peso de uma aresta por indice
     public int getPesoDaAresta(int position){
         return listaArestas.get(position).getPeso();
     }
 
-    //  Acessores e Modificadores
+    //  Buscar destino de uma aresta
+    public Vertice buscarDestino(Vertice destino) {
+        if (existeAresta(destino)) {
+            return buscarArestaDestino(destino).getDestino();
+        }
+        return null;
+    }
 
+    //  Buscar destino de uma Aresta por indice
+    public Vertice getDestinoAresta(int position){
+        return listaArestas.get(position).getDestino();
+    }
 
+    //  Imprimir vertice com todos os caminhos
+    public void imprimirVertice() {
+        System.out.println("Informação do vértice: " + getElement());
+        System.out.println("Caminhos do vértice, no formato Origem-Destino-Peso: ");
+        for (int i = 0; i < qtdArestas; i++) {
+            System.out.print(getElement() + "-"
+                    + this.listaArestas.get(i).getDestino().getElement()
+                    + this.listaArestas.get(i).getPeso() + "\n");
+        }
+    }
 }
