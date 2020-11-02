@@ -1,21 +1,15 @@
 package Estrutura_de_Dados_II.Grafo;
 
-import java.util.ArrayList;
-
 public class Vertice {
     //  Atributos
     private final Object element;
-    private ArrayList <Aresta> listaArestas;
-    private int qtdArestas;
+    private ListaArestas listaArestas;
 
     //  Construtor
     public Vertice(Object element) {
         this.element = element;
-        this.listaArestas = new ArrayList <Aresta> ();
-        this.qtdArestas = 0;
+        this.listaArestas = new ListaArestas();
     }
-
-    //  Métodos
 
     //  Pegar elemento
     public Object getElement() {
@@ -24,81 +18,48 @@ public class Vertice {
 
     //  Quantidade de Arestas do Vértice
     public int getQtdArestas(){
-        return this.qtdArestas;
+        return this.listaArestas.getQtd();
     }
 
     //  Adicionar uma nova aresta
-    public boolean addAresta(Vertice destino, int peso) {
-        if (existeAresta(destino)) {
-            System.out.println("Já existe uma aresta com o mesmo destino informado!!");
-            return false;
-        }
-        Aresta nova = new Aresta(destino, peso);
-        this.listaArestas.add(nova);
-        this.qtdArestas++;
-        return true;
+    public boolean addAresta(Vertice destino, int peso1, int peso2, int peso3) {
+        return this.listaArestas.add(destino, peso1, peso2, peso3);
     }
 
     //  Remover aresta por destino
-    public boolean removerArestaDestino(Vertice destino){
-        Aresta removida = buscarArestaDestino(destino);
-        if (removida != null) {
-            this.listaArestas.remove(removida);
-            return true;
-        }
-        System.out.println("O vértice não possui nenhuma aresta com o destino informado!!");
-        return false;
+    public boolean remover(Vertice destino){
+        return this.listaArestas.remove(destino);
     }
 
     //  Buscar aresta por destino
-    public Aresta buscarArestaDestino(Vertice destino) {
-        for (int i = 0; i < this.qtdArestas; i++) {
-            if (this.listaArestas.get(i).getDestino() == destino)
-                return this.listaArestas.get(i);
-        }
-        return null;
+    public Aresta buscarAresta(Vertice destino) {
+        return this.listaArestas.buscar(destino);
     }
 
     // Verificar se uma aresta existe
     public boolean existeAresta(Vertice destino) {
-        return buscarArestaDestino(destino) != null;
+        return this.listaArestas.existeAresta(destino);
     }
 
     //  Buscar peso de uma aresta
-    public int pesoAresta(Vertice destino) {
+    public double pesoAresta(Vertice destino) {
         if (existeAresta(destino)) {
-            Aresta aresta = buscarArestaDestino(destino);
-            return aresta.getPeso();
+            Aresta aresta = buscarAresta(destino);
+            return aresta.getPesoFinal();
         }
         return -1;
-    }
-
-    //  Buscar peso de uma aresta por indice
-    public int getPesoDaAresta(int position){
-        return listaArestas.get(position).getPeso();
-    }
-
-    //  Buscar destino de uma aresta
-    public Vertice buscarDestino(Vertice destino) {
-        if (existeAresta(destino)) {
-            return buscarArestaDestino(destino).getDestino();
-        }
-        return null;
-    }
-
-    //  Buscar destino de uma Aresta por indice
-    public Vertice getDestinoAresta(int position){
-        return listaArestas.get(position).getDestino();
     }
 
     //  Imprimir vertice com todos os caminhos
     public void imprimirVertice() {
         System.out.println("Informação do vértice: " + getElement());
         System.out.println("Caminhos do vértice, no formato Origem-Destino-Peso: ");
-        for (int i = 0; i < qtdArestas; i++) {
-            System.out.print(getElement() + "-"
-                    + this.listaArestas.get(i).getDestino().getElement()
-                    + this.listaArestas.get(i).getPeso() + "\n");
+        Aresta temp = this.listaArestas.getInicio();
+    }
+    public void imprimir(Aresta temp) {
+        if (temp != null){
+            System.out.println(getElement() + "-" + temp.getDestino() + temp.getPesoFinal());
+            imprimir(temp.getProxima());
         }
     }
 }
