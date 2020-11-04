@@ -15,23 +15,22 @@ public class ListaArestas {
 
     //  Adicionar
     public boolean add(Vertice destino, int peso1, int peso2, int peso3) {
-        if (!existeAresta(destino)){
-            Aresta nova = new Aresta(destino, peso1, peso2, peso3);
-            if (qtdLista == 0){
-                this.inicio = nova;
-                this.fim = nova;
-                this.qtdLista++;
-                return true;
-            }else{
+        Aresta nova = new Aresta(destino, peso1, peso2, peso3);
+        if (qtdLista != 0) {
+            if (!existeAresta(destino)) {
                 this.fim.setProxima(nova);
                 nova.setAnterior(fim);
                 this.fim = nova;
                 this.qtdLista++;
                 return true;
             }
+            System.out.println("Já existe uma aresta com este mesmo destino");
+            return false;
         }
-        System.out.println("Já existe uma aresta com este mesmo destino");
-        return false;
+        this.inicio = nova;
+        this.fim = nova;
+        this.qtdLista++;
+        return true;
     }
 
     //  Remover
@@ -39,15 +38,32 @@ public class ListaArestas {
        if (estaVazia()){
            Aresta removida = buscar(destino);
            if (removida != null) {
+               if (removida.equals(inicio)) return removerI();
+               if (removida.equals(fim)) return removerF();
                Aresta tempProxima = removida.getProxima();
                Aresta tempAnterior = removida.getAnterior();
                tempAnterior.setProxima(tempProxima);
                tempProxima.setAnterior(tempAnterior);
+               this.qtdLista--;
                return true;
            }
+           System.out.println("Destino não encontrado na lista de arestas do vértice.");
+           return false;
        }
        System.out.println("A lista de aresta está vazia");
        return false;
+    }
+    private boolean removerI() {
+        this.inicio = inicio.getProxima();
+        this.inicio.setAnterior(null);
+        this.qtdLista--;
+        return true;
+    }
+    private boolean removerF() {
+        this.fim = fim.getAnterior();
+        this.fim.setProxima(null);
+        this.qtdLista--;
+        return true;
     }
 
     public Aresta getInicio() {
@@ -66,7 +82,7 @@ public class ListaArestas {
     private Aresta buscar(Aresta temp, Vertice destino) {
         if (temp != null) {
             if (temp.getDestino() == destino) return temp;
-            buscar(temp.getProxima(), destino);
+            return buscar(temp.getProxima(), destino);
         }
         return null;
     }
@@ -83,6 +99,6 @@ public class ListaArestas {
 
     //  Lista está vaiza? S == true | N == false
     public boolean estaVazia() {
-        return (this.inicio != null && this.fim != null);
+        return (this.inicio != null || this.fim != null);
     }
 }

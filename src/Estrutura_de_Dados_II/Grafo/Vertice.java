@@ -3,7 +3,7 @@ package Estrutura_de_Dados_II.Grafo;
 public class Vertice {
     //  Atributos
     private final Object element;
-    private ListaArestas listaArestas;
+    private final ListaArestas listaArestas;
 
     //  Construtor
     public Vertice(Object element) {
@@ -17,18 +17,18 @@ public class Vertice {
     }
 
     //  Quantidade de Arestas do Vértice
-    public int getQtdArestas(){
+    public int qtdArestas(){
         return this.listaArestas.getQtd();
     }
 
     //  Adicionar uma nova aresta
-    public boolean addAresta(Vertice destino, int peso1, int peso2, int peso3) {
-        return this.listaArestas.add(destino, peso1, peso2, peso3);
+    public void addAresta(Vertice destino, int peso1, int peso2, int peso3) {
+        this.listaArestas.add(destino, peso1, peso2, peso3);
     }
 
     //  Remover aresta por destino
-    public boolean remover(Vertice destino){
-        return this.listaArestas.remove(destino);
+    public void remover(Vertice destino){
+        this.listaArestas.remove(destino);
     }
 
     //  Buscar aresta por destino
@@ -51,14 +51,14 @@ public class Vertice {
     }
 
     //  Imprimir vertice com todos os caminhos
-    public void imprimirVertice() {
-        System.out.println("Informação do vértice: " + getElement());
-        System.out.println("Caminhos do vértice, no formato Origem-Destino-Peso: ");
+    public void imprimir() {
+        System.out.println("Caminhos do vértice " + getElement() + ", no formato Origem-Destino-Peso: ");
         Aresta temp = this.listaArestas.getInicio();
+        imprimir(temp);
     }
-    public void imprimir(Aresta temp) {
+    private void imprimir(Aresta temp) {
         if (temp != null){
-            System.out.println(getElement() + "-" + temp.getDestino() + temp.getPesoFinal());
+            System.out.println(getElement() + " -> " + temp.getDestino().getElement() + " = " + temp.getPesoFinal());
             imprimir(temp.getProxima());
         }
     }
