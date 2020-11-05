@@ -3,18 +3,18 @@ package Estrutura_de_Dados_II.Grafo;
 import java.util.Objects;
 
 public class Aresta {
-    //  Atributos
+//  Atributos
     private Vertice destino;            // O Destino será o elemento principal da classe: KEY
     private Double pesoFinal;
     private Aresta proxima, anterior;
-//    private int peso1, peso2, peso3;
+    //private int peso1, peso2, peso3;
 
-    //  Construtor
+//  Construtor
     public Aresta(Vertice destino, int peso1, int peso2, int peso3){
         this.destino = destino;
         this.pesoFinal = (double) (peso1 + peso2 + peso3) / 3;
         this.proxima = null; this.anterior = null;
-//        this.peso1 = peso1; this.peso2 = peso2; this.peso3 = peso3;
+        //this.peso1 = peso1; this.peso2 = peso2; this.peso3 = peso3;
     }
 
     //  Pegar Destino

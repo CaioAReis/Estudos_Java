@@ -1,16 +1,19 @@
 package Estrutura_de_Dados_II.Grafo;
 
+import java.util.Objects;
+
 public class Vertice {
-    //  Atributos
-    private final Object element;
+//  Atributos
+    private final Character element;
     private final ListaArestas listaArestas;
 
-    //  Construtor
-    public Vertice(Object element) {
+//  Construtor
+    public Vertice(Character element) {
         this.element = element;
         this.listaArestas = new ListaArestas();
     }
 
+//  Métodos
     //  Pegar elemento
     public Object getElement() {
         return element;
@@ -22,13 +25,13 @@ public class Vertice {
     }
 
     //  Adicionar uma nova aresta
-    public void addAresta(Vertice destino, int peso1, int peso2, int peso3) {
-        this.listaArestas.add(destino, peso1, peso2, peso3);
+    public boolean addAresta(Vertice destino, int peso1, int peso2, int peso3) {
+        return this.listaArestas.add(destino, peso1, peso2, peso3);
     }
 
     //  Remover aresta por destino
-    public void remover(Vertice destino){
-        this.listaArestas.remove(destino);
+    public boolean removerAresta(Vertice destino){
+        return this.listaArestas.remove(destino);
     }
 
     //  Buscar aresta por destino
@@ -61,5 +64,18 @@ public class Vertice {
             System.out.println(getElement() + " -> " + temp.getDestino().getElement() + " = " + temp.getPesoFinal());
             imprimir(temp.getProxima());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertice vertice = (Vertice) o;
+        return element.equals(vertice.element);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(element);
     }
 }

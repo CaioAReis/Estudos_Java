@@ -1,18 +1,19 @@
 package Estrutura_de_Dados_II.Grafo;
 
 public class ListaArestas {
-    // Atributos
+//  Atributos
     private Aresta inicio;
     private Aresta fim;
     private int qtdLista;
 
-    // Construtor
+//  Construtor
     public ListaArestas() {
         this.inicio = null;
         this.fim = null;
         this.qtdLista = 0;
     }
 
+//  Métodos
     //  Adicionar
     public boolean add(Vertice destino, int peso1, int peso2, int peso3) {
         Aresta nova = new Aresta(destino, peso1, peso2, peso3);
