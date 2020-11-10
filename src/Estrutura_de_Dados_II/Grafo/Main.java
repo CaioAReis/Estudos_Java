@@ -7,45 +7,35 @@ public class Main {
 
         Grafo grafo = new Grafo();
 
+        //  DEFININDO OS VERTICES
         grafo.addVertice('A');
         grafo.addVertice('B');
         grafo.addVertice('C');
+        grafo.addVertice('D');
+        grafo.addVertice('E');
+        grafo.addVertice('F');
 
-        grafo.addAresta('A', 'B', 2,2,2);
-        grafo.addAresta('A', 'C',5,5,5);
+        //  DEFININDO AS ROTAS
+        //  A
+        grafo.addAresta('A', 'B', 1,1,1);
+        grafo.addAresta('A', 'D',2,2,2);
+        grafo.addAresta('A', 'E',3,3,3);
+        //  B
+        grafo.addAresta('B', 'C', 7,7,7);
+        //  C
+        grafo.addAresta('C', 'F', 2,2,2);
+        //  D
+        grafo.addAresta('D', 'E',2,2,2);
+        //  E
+        grafo.addAresta('E', 'D',15,15,15);
+        grafo.addAresta('E', 'B',1,1,1);
+        grafo.addAresta('E', 'C',3,3,3);
+        //  F
+        grafo.addAresta('F', 'E',1,1,1);
 
-        grafo.addAresta('B', 'C', 3,2,1);
 
-        grafo.addAresta('C', 'B', 4,5,6);
 
-        grafo.getVetice('A').imprimir();
-        grafo.getVetice('B').imprimir();
-        grafo.getVetice('C').imprimir();
+        grafo.buscarMelhorCaminho('A', 'C');
 
-        System.out.println("-----------------------");
-
-        grafo.removerAresta('A', 'C');
-        grafo.getVetice('A').imprimir();
-
-        System.out.println("-----------------------");
-
-        System.out.println(grafo.existeArestaEntre('A', 'B'));
-        System.out.println(grafo.existeArestaEntre('A', 'C'));
-
-        System.out.println("-----------------------");
-
-        System.out.println(grafo.getQtdArestas());
-
-        System.out.println("-----------------------");
-
-        System.out.println(grafo.existeVertice('C'));
-        grafo.removeVertice('C');
-        System.out.println(grafo.existeVertice('C'));
-        System.out.println(grafo.getQtdArestas());
-
-        System.out.println("-----------------------");
-
-        System.out.println(grafo.qtdArestasDoVertice('A'));
-        System.out.println(grafo.getPesoAresta('A', 'B'));
     }
 }

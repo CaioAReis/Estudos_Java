@@ -1,14 +1,16 @@
 package Estrutura_de_Dados_II.Grafo;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Vertice {
 //  Atributos
-    private final Character element;
+    private final Object element;
+    private ArrayList<Vertice> visitados = new ArrayList<>();
     private final ListaArestas listaArestas;
 
 //  Construtor
-    public Vertice(Character element) {
+    public Vertice(Object element) {
         this.element = element;
         this.listaArestas = new ListaArestas();
     }
@@ -17,6 +19,14 @@ public class Vertice {
     //  Pegar elemento
     public Object getElement() {
         return element;
+    }
+
+    public ListaArestas getListaArestas() {
+        return listaArestas;
+    }
+
+    public ArrayList<Vertice> getVisitados() {
+        return visitados;
     }
 
     //  Quantidade de Arestas do Vértice
@@ -64,6 +74,19 @@ public class Vertice {
             System.out.println(getElement() + " -> " + temp.getDestino().getElement() + " = " + temp.getPesoFinal());
             imprimir(temp.getProxima());
         }
+    }
+
+    public void addVizitado(Vertice v) {
+        this.visitados.add(v);
+    }
+
+    public boolean foiVizitado(Vertice v) {
+        return this.visitados.contains(v);
+    }
+
+    @Override
+    public String toString() {
+        return "" + element;
     }
 
     @Override
