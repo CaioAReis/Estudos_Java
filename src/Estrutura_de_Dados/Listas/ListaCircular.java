@@ -1,11 +1,11 @@
 package Estrutura_de_Dados.Listas;
 
-public class ListaCircular implements ILista{
+public class ListaCircular<T> implements ILista<T>{
 
     // Atributos
 
-    private No inicio;
-    private No fim;
+    private No<T> inicio;
+    private No<T> fim;
     private int qtdLista;
 
     // Construtor
@@ -19,9 +19,9 @@ public class ListaCircular implements ILista{
     // Metodos
 
     @Override
-    public void adicionarFim(Object o) {
+    public void adicionarFim(T o) {
 
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
 
         if (qtdLista == 0){
             adicionarInicio(o);
@@ -35,13 +35,13 @@ public class ListaCircular implements ILista{
     }
 
     @Override
-    public void adicionarPosicao(int position, Object o) {
+    public void adicionarPosicao(int position, T o) {
 
         if (position < 0 || position > qtdLista)
             throw new IllegalArgumentException("Posição Informada inválida!");
         else {
-            No novo = new No(o);
-            No temp = get(position-1);
+            No<T> novo = new No<>(o);
+            No<T> temp = get(position-1);
 
             novo.setProximo(temp.getProximo());
             temp.setProximo(novo);
@@ -50,9 +50,9 @@ public class ListaCircular implements ILista{
     }
 
     @Override
-    public void adicionarInicio(Object o) {
+    public void adicionarInicio(T o) {
 
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
 
         if (qtdLista == 0){
             inicio = novo;
@@ -71,7 +71,7 @@ public class ListaCircular implements ILista{
         if (qtdLista == 0 && inicio == fim)
             removerInicio();
 
-        No temp = get(qtdLista-2);
+        No<T> temp = get(qtdLista-2);
 
         temp.setProximo(inicio);
         fim = temp;
@@ -84,8 +84,8 @@ public class ListaCircular implements ILista{
         if (position < 0 || position >= qtdLista)
             throw new IllegalArgumentException("Posição Informada inválida!");
 
-        No temp = get(position - 1);
-        No auxiliar = temp.getProximo();
+        No<T> temp = get(position - 1);
+        No<T> auxiliar = temp.getProximo();
         temp.setProximo(auxiliar.getProximo());
         qtdLista--;
     }
@@ -105,12 +105,12 @@ public class ListaCircular implements ILista{
     }
 
     @Override
-    public No get(int position) {
+    public No<T> get(int position) {
 
         if (position >= qtdLista)
             throw new IllegalArgumentException("Posição Inválida!");
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         for (int i = 0; i < position; i++)
             temp = temp.getProximo();
@@ -124,9 +124,9 @@ public class ListaCircular implements ILista{
     }
 
     @Override
-    public boolean encontrarElemento(Object o) {
+    public boolean encontrarElemento(T o) {
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while (temp.getProximo() != inicio ){
 
@@ -140,7 +140,7 @@ public class ListaCircular implements ILista{
     @Override
     public void listar() {
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while (temp.getProximo() != inicio){
             System.out.println(temp.getElement()+ " Proximo: " + temp.getProximo().getElement() + " | ");

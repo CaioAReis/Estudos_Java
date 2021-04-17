@@ -1,16 +1,16 @@
 package Estrutura_de_Dados.Listas;
 
-public class No {
+public class No<T> {
     
     // Atributos
     
-    private Object element;
-    private No proximo;
-    private No anterior; // Apenas para Listas Duplamente Encadeada!
+    private T element;
+    private No<T> proximo;
+    private No<T> anterior; // Apenas para Listas Duplamente Encadeada!
 
 // Construtor
     
-    public No(Object element) {
+    public No(T element) {
         this.element = element;
         proximo = null;
         anterior = null;
@@ -18,27 +18,27 @@ public class No {
     
     // Metodos Especiais
     
-    public Object getElement() {
+    public T getElement() {
         return element;
     }
 
-//    public void setElement(Object element) { 
-//        this.element = element;
-//    }
+   public void setElement(T element) { 
+       this.element = element;
+   }
 
-    public No getProximo() {
+    public No<T> getProximo() {
         return proximo;
     }
 
-    public void setProximo(No proximo) {
+    public void setProximo(No<T> proximo) {
         this.proximo = proximo;
     }
 
-    public No getAnterior() {
+    public No<T> getAnterior() {
         return anterior;
     }
 
-    public void setAnterior(No anterior) {
+    public void setAnterior(No<T> anterior) {
         this.anterior = anterior;
     }
 

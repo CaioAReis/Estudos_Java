@@ -1,11 +1,11 @@
 package Estrutura_de_Dados.Listas;
 
-public class ListaDuplamenteEncadeadaCircular implements ILista {
+public class ListaDuplamenteEncadeadaCircular<T> implements ILista<T> {
 
     // Atributos
 
-    private No inicio;
-    private No fim;
+    private No<T> inicio;
+    private No<T> fim;
     private int qtdLista;
 
     // Construtor
@@ -19,9 +19,9 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     // Metodos
 
     @Override
-    public void adicionarFim(Object o) {
+    public void adicionarFim(T o) {
 
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
 
         if (qtdLista == 0)
             adicionarInicio(o);
@@ -36,16 +36,16 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     }
 
     @Override
-    public void adicionarPosicao(int position, Object o) {
+    public void adicionarPosicao(int position, T o) {
 
         if (position == 0)
             adicionarInicio(o);
         else if (position == qtdLista - 1)
             adicionarFim(o);
         else {
-            No novo = new No(o);
-            No temp = get(position);
-            No tempAnterior = temp.getAnterior();
+            No<T> novo = new No<>(o);
+            No<T> temp = get(position);
+            No<T> tempAnterior = temp.getAnterior();
             tempAnterior.setProximo(novo);
             temp.setAnterior(novo);
             novo.setProximo(temp);
@@ -55,9 +55,9 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     }
 
     @Override
-    public void adicionarInicio(Object o) {
+    public void adicionarInicio(T o) {
 
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
 
         if (qtdLista == 0){
             inicio = novo;
@@ -101,9 +101,9 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
         else if (position == qtdLista - 1)
             removerFim();
         else {
-            No temp = get(position);
-            No tempAnterior = temp.getAnterior();
-            No tempProximo = temp.getProximo();
+            No<T> temp = get(position);
+            No<T> tempAnterior = temp.getAnterior();
+            No<T> tempProximo = temp.getProximo();
 
             tempAnterior.setProximo(tempProximo);
             tempProximo.setAnterior(tempAnterior);
@@ -122,7 +122,7 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
             fim = null;
             qtdLista--;
         }else {
-            No temp = inicio;
+            No<T> temp = inicio;
             inicio = inicio.getProximo();
             inicio.setAnterior(temp.getAnterior());
             fim.setProximo(inicio);
@@ -131,13 +131,13 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     }
 
     @Override
-    public No get(int position) {
+    public No<T> get(int position) {
 
         if (position > qtdLista || position < 0)
             throw new IllegalArgumentException("Posição Inválida!");
         else {
 
-            No temp = inicio;
+            No<T> temp = inicio;
 
             for (int i = 0; i < position; i++)
                 temp = temp.getProximo();
@@ -152,9 +152,9 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     }
 
     @Override
-    public boolean encontrarElemento(Object o) {
+    public boolean encontrarElemento(T o) {
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while (temp.getProximo() != inicio ){
 
@@ -168,7 +168,7 @@ public class ListaDuplamenteEncadeadaCircular implements ILista {
     @Override
     public void listar() {
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while (temp.getProximo() != inicio){
             System.out.println(temp.getElement() + " :" +

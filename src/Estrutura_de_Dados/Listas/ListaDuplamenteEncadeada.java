@@ -1,15 +1,13 @@
 package Estrutura_de_Dados.Listas;
 
-public class ListaDuplamenteEncadeada  implements ILista{
+public class ListaDuplamenteEncadeada<T> implements ILista<T>{
 
     // Atributos
-
-    private No inicio;
-    private No fim;
+    private No<T> inicio;
+    private No<T> fim;
     private int qtdLista;
 
     // Construtor
-
     public ListaDuplamenteEncadeada() {
         this.inicio = null;
         this.fim = null;
@@ -17,14 +15,13 @@ public class ListaDuplamenteEncadeada  implements ILista{
     }
 
     // Métodos
-
     @Override
-    public void adicionarFim(Object o) {
+    public void adicionarFim(T o) {
 
         if (qtdLista == 0){
             adicionarInicio(o);
         }else{
-            No novo = new No(o);
+            No<T> novo = new No<>(o);
             fim.setProximo(novo);
             novo.setAnterior(fim);
             fim = novo;
@@ -33,16 +30,16 @@ public class ListaDuplamenteEncadeada  implements ILista{
     }
 
     @Override
-    public void adicionarPosicao(int position, Object o) {
+    public void adicionarPosicao(int position, T o) {
 
         if (position == 0)
             adicionarInicio(o);
         else if (position > qtdLista || position < 0)
             throw new IllegalArgumentException("Posição Inválida!!");
         else {
-            No novo = new No(o);
-            No temp = get(position);
-            No tempAnterior = temp.getAnterior();
+            No<T> novo = new No<>(o);
+            No<T> temp = get(position);
+            No<T> tempAnterior = temp.getAnterior();
 
             tempAnterior.setProximo(novo);
             novo.setAnterior(tempAnterior);
@@ -54,9 +51,9 @@ public class ListaDuplamenteEncadeada  implements ILista{
     }
 
     @Override
-    public void adicionarInicio(Object o) {
+    public void adicionarInicio(T o) {
 
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
 
         if (qtdLista == 0){
             inicio = novo;
@@ -76,7 +73,7 @@ public class ListaDuplamenteEncadeada  implements ILista{
         if (qtdLista == 1)
             removerInicio();
         else{
-            No temp = fim.getAnterior();
+            No<T> temp = fim.getAnterior();
             temp.setProximo(null);
             fim = temp;
             qtdLista--;
@@ -94,9 +91,9 @@ public class ListaDuplamenteEncadeada  implements ILista{
         else if (position == qtdLista - 1)
             removerFim();
         else{
-            No temp = get(position);
-            No tempAnterior = temp.getAnterior();
-            No tempProximo = temp.getProximo();
+            No<T> temp = get(position);
+            No<T> tempAnterior = temp.getAnterior();
+            No<T> tempProximo = temp.getProximo();
 
             tempAnterior.setProximo(tempProximo);
             tempProximo.setAnterior(tempAnterior);
@@ -117,12 +114,12 @@ public class ListaDuplamenteEncadeada  implements ILista{
     }
 
     @Override
-    public No get(int position) {
+    public No<T> get(int position) {
 
         if (position < 0 || position >= qtdLista)
             throw new IllegalArgumentException("Posição Inválida!!");
 
-        No temp = inicio;
+        No<T> temp = inicio;
         for (int i = 0; i < position; i++)
             temp = temp.getProximo();
 
@@ -135,8 +132,8 @@ public class ListaDuplamenteEncadeada  implements ILista{
     }
 
     @Override
-    public boolean encontrarElemento(Object o) {
-        No temp = inicio;
+    public boolean encontrarElemento(T o) {
+        No<T> temp = inicio;
 
         while (temp != null ){
 
@@ -150,11 +147,27 @@ public class ListaDuplamenteEncadeada  implements ILista{
     @Override
     public void listar() {
 
-        No temp = inicio;
-
+        No<T> temp = inicio;
+        // System.out.print(fim.getElement()+ "FFFFFFFFF\n");
         while ( temp != null){
             System.out.print(temp.getElement() + " | ");
             temp = temp.getProximo();
         }
+        System.out.println();
     }
+
+    // public Boolean estaOrdenada() {
+    //     return verificarOrdem(inicio);
+    // }
+
+    //  A IDE entende este médodo como errado pois a lista possui o tipo T,
+    // e ele só funciona pra listas do tipo INT
+    // private Boolean verificarOrdem(No<T> temp) {
+    //     if (temp != fim) {
+    //         if (temp.getElement() >= temp.getProximo().getElement())
+    //             return verificarOrdem(temp.getProximo());
+    //         else return false;
+    //     }
+    //     return true;
+    // }
 }

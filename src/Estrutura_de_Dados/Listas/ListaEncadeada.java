@@ -1,11 +1,11 @@
 package Estrutura_de_Dados.Listas;
 
-public class ListaEncadeada implements ILista{
+public class ListaEncadeada<T> implements ILista<T>{
     
     // Atributos
 
-    private No inicio;
-    private No fim;
+    private No<T> inicio;
+    private No<T> fim;
     private int qtdLista;
     
     // Construtor
@@ -19,34 +19,26 @@ public class ListaEncadeada implements ILista{
     // Metodos
 
     @Override
-    public void adicionarFim(Object o) {
+    public void adicionarFim(T o) {
         
         if (qtdLista == 0)
             adicionarInicio(o);
         else{
-            No novo = new No(o);
+            No<T> novo = new No<>(o);
             fim.setProximo(novo);
             fim = novo;
             qtdLista++;
         }
-        
-//  Dessa forma abaixo iremos percorrer toda a lista; 
-//  que se for muito grande implicará no desempenho do programa!!        
-
-//        while (atual.getProximo() != null) 
-//            atual = atual.getProximo();
-//        
-//        atual.setProximo(novo);
     }
 
     @Override
-    public void adicionarPosicao(int position, Object o){
+    public void adicionarPosicao(int position, T o){
         
         if (position < 0 || position > qtdLista)
             throw new IllegalArgumentException("Posição Informada inválida!");
         
-        No novo = new No(o);
-        No temp = get(position - 1);
+        No<T> novo = new No<>(o);
+        No<T> temp = get(position - 1);
 
         novo.setProximo(temp.getProximo());
         temp.setProximo(novo);
@@ -54,9 +46,9 @@ public class ListaEncadeada implements ILista{
     }
 
     @Override
-    public void adicionarInicio(Object o) {
+    public void adicionarInicio(T o) {
         
-        No novo = new No(o);
+        No<T> novo = new No<>(o);
         
         if (qtdLista == 0){
             inicio = novo;
@@ -75,7 +67,7 @@ public class ListaEncadeada implements ILista{
         if (qtdLista == 0 && inicio == fim)
             removerInicio();
 
-        No temp = get(qtdLista - 2);
+        No<T> temp = get(qtdLista - 2);
 
         temp.setProximo(null);
         fim = temp;
@@ -88,8 +80,8 @@ public class ListaEncadeada implements ILista{
         if (position < 0 || position >= qtdLista)
             throw new IllegalArgumentException("Posição Informada inválida!");
 
-        No temp = get(position - 1);
-        No excluido = temp.getProximo();
+        No<T> temp = get(position - 1);
+        No<T> excluido = temp.getProximo();
         temp.setProximo(excluido.getProximo());
         qtdLista--;
     }
@@ -108,12 +100,12 @@ public class ListaEncadeada implements ILista{
     }
 
     @Override
-    public No get(int position) {
+    public No<T> get(int position) {
 
         if (position >= qtdLista)
             throw new IllegalArgumentException("Posição Inválida!");
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         for (int i = 0; i < position; i++)
             temp = temp.getProximo();
@@ -129,7 +121,7 @@ public class ListaEncadeada implements ILista{
     @Override
     public boolean encontrarElemento(Object o) {
 
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while (temp != null){
 
@@ -143,7 +135,7 @@ public class ListaEncadeada implements ILista{
     @Override
     public void listar() {
         
-        No temp = inicio;
+        No<T> temp = inicio;
 
         while ( temp != null ){
             System.out.print(temp.getElement() + " | ");
