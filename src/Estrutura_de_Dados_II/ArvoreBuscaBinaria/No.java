@@ -1,4 +1,4 @@
-package Estrutura_de_Dados_II.ArvoreBuscaBinaria;
+package ArvoreBuscaBinaria;
 
 public class No {
     //  Atributos

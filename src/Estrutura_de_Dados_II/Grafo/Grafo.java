@@ -1,4 +1,4 @@
-package Estrutura_de_Dados_II.Grafo;
+package Grafo;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package Estrutura_de_Dados_II.Arvore;
+package Arvore;
 
 public class No {
 

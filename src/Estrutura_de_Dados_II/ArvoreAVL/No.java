@@ -1,4 +1,4 @@
-package Estrutura_de_Dados_II.ArvoreAVL;
+package ArvoreAVL;
 
 public class No {
     //  Atributos

@@ -1,4 +1,4 @@
-package Estrutura_de_Dados_II.Grafo;
+package Grafo;
 
 public class Main {
     public static void main(String[] args) {
