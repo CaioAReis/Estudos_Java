@@ -17,14 +17,14 @@ public class Grafo<T> {
 
     // Métodos
     // Inserir um Vertice
-    public void addVertice(T element) {
+    public void adicionarVertice(T element) {
         Vertice<T> novo = new Vertice<T>(element);
         this.conjuntoVertices.put(element, novo);
         this.qtdVertices++;
     }
 
     // Remover um Vertice
-    public void removeVertice(T element) {
+    public void removerVertice(T element) {
         Vertice<T> removido = getVetice(element);
         this.qtdArestas -= removido.qtdArestas();
         this.conjuntoVertices.remove(element);
@@ -55,7 +55,7 @@ public class Grafo<T> {
     }
 
     // Inserir uma Aresta
-    public void addAresta(T origem, T destino, int peso) {
+    public void adicionarAresta(T origem, T destino, int peso) {
         Vertice<T> tempO = getVetice(origem);
         Vertice<T> tempD = getVetice(destino);
         if (tempO.addAresta(tempD, peso))

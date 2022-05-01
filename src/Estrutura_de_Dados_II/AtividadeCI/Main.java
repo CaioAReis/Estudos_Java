@@ -6,33 +6,31 @@ public class Main {
         Grafo<Character> grafo = new Grafo<Character>();
 
         // DEFININDO OS VERTICES
-        grafo.addVertice('A');
-        grafo.addVertice('E');
-        grafo.addVertice('I');
-        grafo.addVertice('O');
-        grafo.addVertice('U');
+        grafo.adicionarVertice('A');
+        grafo.adicionarVertice('E');
+        grafo.adicionarVertice('I');
+        grafo.adicionarVertice('O');
+        grafo.adicionarVertice('U');
 
         // DEFININDO AS ROTAS
         // A
-        grafo.addAresta('A', 'E', 10);
-        grafo.addAresta('A', 'U', 5);
+        grafo.adicionarAresta('A', 'E', 10);
+        grafo.adicionarAresta('A', 'U', 5);
 
         // E
-        grafo.addAresta('E', 'I', 1);
-        grafo.addAresta('E', 'U', 3);
+        grafo.adicionarAresta('E', 'I', 1);
+        grafo.adicionarAresta('E', 'U', 3);
 
         // I
-        grafo.addAresta('I', 'O', 6);
+        grafo.adicionarAresta('I', 'O', 6);
 
         // O
-        grafo.addAresta('O', 'I', 4);
-        grafo.addAresta('D', 'A', 7);
+        grafo.adicionarAresta('O', 'I', 4);
+        grafo.adicionarAresta('D', 'A', 7);
 
         // U
-        grafo.addAresta('U', 'O', 2);
-        grafo.addAresta('U', 'E', 2);
-        grafo.addAresta('U', 'I', 9);
-
-        
+        grafo.adicionarAresta('U', 'O', 2);
+        grafo.adicionarAresta('U', 'E', 2);
+        grafo.adicionarAresta('U', 'I', 9);
     }
 }
