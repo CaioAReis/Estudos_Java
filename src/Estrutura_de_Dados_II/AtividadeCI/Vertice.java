@@ -4,11 +4,13 @@ public class Vertice<T> {
     // Atributos
     private final T element;
     private final ListaArestas<T> listaArestas;
+    private int estimativa;
 
     // Construtor
     public Vertice(T element) {
         this.element = element;
         this.listaArestas = new ListaArestas<T>();
+        this.estimativa = Integer.MAX_VALUE;
     }
 
     // Pegar elemento
@@ -71,6 +73,14 @@ public class Vertice<T> {
     @Override
     public String toString() {
         return "" + element;
+    }
+
+    public int getEstimativa() {
+        return estimativa;
+    }
+
+    public void setEstimativa(int estimativa) {
+        this.estimativa = estimativa;
     }
 
     // @Override
