@@ -1,5 +1,6 @@
 package AtividadeCI;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,12 +8,66 @@ public class Grafo<T> {
     // Atributos
     private final Map<T, Vertice<T>> conjuntoVertices;
     private int qtdVertices, qtdArestas;
+    private ArrayList<Vertice<T>> vizitados;
 
     // Construtor
     public Grafo() {
         this.conjuntoVertices = new HashMap<>();
         this.qtdVertices = 0;
         this.qtdArestas = 0;
+        this.vizitados = new ArrayList<>();
+    }
+
+    // Buscar o melhor caminho
+    public void buscarMelhorCaminho(T origem, T destino) {
+        if (existeVertice(origem) && existeVertice(destino)) {
+            Vertice<T> o = getVetice(origem);
+            Vertice<T> d = getVetice(destino);
+
+            o.setEstimativa(0);
+            percorrerVertices(o);
+
+            if (d.getEstimativa() == Integer.MAX_VALUE)
+                System.out.println("Não é possível chegar no vertice de destino!");
+            else {
+                System.out.println("O melhor caminho entre " + o.getElement() + " e " + d.getElement() + " será: "
+                        + d.getEstimativa());
+            }
+
+        } else
+            System.out.println("Vertice não encontrado!");
+    }
+
+    private void percorrerVertices(Vertice<T> origem) {
+        if (vizitados.size() < conjuntoVertices.size()) {
+            vizitados.add(origem);
+
+            Aresta<T> tempAresta = origem.getListaArestas().getInicio();
+
+            do {
+                Vertice<T> tempVertice = getVetice(tempAresta.getDestino().getElement());
+                int somaEstimativa = origem.getEstimativa() + tempAresta.getPeso();
+                if (somaEstimativa < tempVertice.getEstimativa())
+                    tempVertice.setEstimativa(somaEstimativa);
+                tempAresta = tempAresta.getProxima();
+            } while (tempAresta != null);
+
+            // Buscar o vertice com a menor estimativa e que ainda não foi vizitado
+            Vertice<T> temp = buscarVerticeComMenorEstimativaAberta();
+            percorrerVertices(temp);
+        }
+    }
+
+    private Vertice<T> buscarVerticeComMenorEstimativaAberta() {
+        int menorValor = Integer.MAX_VALUE;
+        Vertice<T> menor = null;
+
+        for (T key : conjuntoVertices.keySet()) {
+            Vertice<T> temp = conjuntoVertices.get(key);
+            if (temp.getEstimativa() < menorValor && !vizitados.contains(temp))
+                menor = conjuntoVertices.get(key);
+        }
+        return menor;
     }
 
     // Métodos
@@ -93,5 +148,13 @@ public class Grafo<T> {
     // Pegar a quantidade geral de arestas
     public int getQtdArestas() {
         return qtdArestas;
+    }
+
+    public ArrayList<Vertice<T>> getVizitados() {
+        return vizitados;
+    }
+
+    public void setVizitados(ArrayList<Vertice<T>> vizitados) {
+        this.vizitados = vizitados;
     }
 }

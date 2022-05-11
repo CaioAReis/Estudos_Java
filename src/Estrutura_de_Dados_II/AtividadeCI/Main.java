@@ -23,7 +23,12 @@ public class Main {
         grafo.adicionarAresta('O', 'A', 7);
         // U
         grafo.adicionarAresta('U', 'O', 2);
-        grafo.adicionarAresta('U', 'E', 2);
+        grafo.adicionarAresta('U', 'E', 3);
         grafo.adicionarAresta('U', 'I', 9);
+
+        //###########################################################
+
+        System.out.println("\n\n\n\n");
+        grafo.buscarMelhorCaminho('A', 'E');
     }
 }
