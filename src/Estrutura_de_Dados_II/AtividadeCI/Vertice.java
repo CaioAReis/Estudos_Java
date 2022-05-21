@@ -82,14 +82,4 @@ public class Vertice<T> {
     public void setEstimativa(int estimativa) {
         this.estimativa = estimativa;
     }
-
-    // @Override
-    // public boolean equals(Object o) {
-    //     if (this == o)
-    //         return true;
-    //     if (o == null || getClass() != o.getClass())
-    //         return false;
-    //     Vertice<T> vertice = (Vertice<T>) o;
-    //     return element.equals(vertice.element);
-    // }
 }

@@ -15,7 +15,7 @@ public class Main {
         grafo.adicionarAresta('A', 'U', 5);
         // E
         grafo.adicionarAresta('E', 'I', 1);
-        grafo.adicionarAresta('E', 'U', 3);
+        grafo.adicionarAresta('E', 'U', 2);
         // I
         grafo.adicionarAresta('I', 'O', 6);
         // O
@@ -29,6 +29,7 @@ public class Main {
         //###########################################################
 
         System.out.println("\n\n\n\n");
-        grafo.buscarMelhorCaminho('A', 'E');
+        grafo.buscarMelhorCaminho('U', 'A');
+        grafo.imprimirCaminhosGrafo();
     }
 }
