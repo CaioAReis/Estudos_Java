@@ -29,7 +29,7 @@ public class Main {
         //###########################################################
 
         System.out.println("\n\n\n\n");
-        grafo.buscarMelhorCaminho('A', 'E');
+        grafo.buscarMelhorCaminho('O', 'E');
         grafo.imprimirCaminhosGrafo();
     }
 }
