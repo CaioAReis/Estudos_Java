@@ -1,4 +1,4 @@
-package Estrutura_de_Dados.Fila.FilaAtividade;
+z
 
 public class FilaVaziaException extends Exception {
     public FilaVaziaException (String mensagem) {
